@@ -2,8 +2,8 @@
 // @name     ItsNotForYouJen
 // @version  1
 // @grant    none
-// @match    https://twitter.com/
-// @match    https://twitter.com/home
+// @match    https://x.com/
+// @match    https://x.com/home
 // ==/UserScript==
 
 'use strict';
