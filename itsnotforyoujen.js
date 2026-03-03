@@ -19,7 +19,7 @@
       }
 
       if (text === 'Following') {
-        tab.textContent = 'Following (correct timeline)';
+        tab.textContent = 'lol pwn3d';
       }
     });
   }
