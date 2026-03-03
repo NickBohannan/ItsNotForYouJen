@@ -1,40 +1,40 @@
 // ==UserScript==
-// @name     ItsNotForYouJen
-// @version  1
-// @grant    none
-// @match    https://x.com/
-// @match    https://x.com/home
+// @name         Remove For You Tab
+// @version      2
+// @grant        none
+// @match        https://x.com/*
 // ==/UserScript==
 
-'use strict';
+(function () {
+  'use strict';
 
-function hideForYou() {
-  const links = Array.from(document.querySelectorAll('a')).slice(0, 20);
-  links.forEach(link => {
-    const spans = link.querySelectorAll('span');
-    spans.forEach(span => {
-      if (span.innerHTML.trim() === 'For you') {
-        let parentDiv = link.closest('div');
-        if (parentDiv) {
-          parentDiv.style.display = 'none';
-        }
+  function removeForYouTab() {
+    const tabs = document.querySelectorAll('[role="tab"]');
+
+    tabs.forEach(tab => {
+      const text = tab.textContent.trim();
+
+      if (text === 'For you') {
+        tab.style.display = 'none';
       }
-      if (span.innerHTML.trim() === 'Following') span.innerHTML = 'lol pwn3d';
+
+      if (text === 'Following') {
+        tab.textContent = 'Following (correct timeline)';
+      }
     });
+  }
+
+  // Run immediately
+  removeForYouTab();
+
+  // Observe dynamic changes (SPA behavior)
+  const observer = new MutationObserver(() => {
+    removeForYouTab();
   });
-}
 
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(mutation => {
-    if (mutation.addedNodes.length) {
-      hideForYou();
-    }
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
   });
-});
 
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-});
-
-
+})();
